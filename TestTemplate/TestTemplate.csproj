@@ -5028,6 +5028,9 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\about.jpg" />
+    <Content Include="Content\img\avt_Minh.jpg" />
+    <Content Include="Content\img\badminton-home.jpg" />
+    <Content Include="Content\img\basketball-home.jpg" />
     <Content Include="Content\img\call-to-action.jpg" />
     <Content Include="Content\img\carousel-1.jpg" />
     <Content Include="Content\img\carousel-2.jpg" />
@@ -5057,12 +5060,14 @@
     <Content Include="Content\img\san-cau-long.jpg" />
     <Content Include="Content\img\san-tennis.jpg" />
     <Content Include="Content\img\sanbong2.jpg" />
+    <Content Include="Content\img\sb-home.jpg" />
     <Content Include="Content\img\sb_hvtc.jpg" />
     <Content Include="Content\img\sport.png" />
     <Content Include="Content\img\team-1.jpg" />
     <Content Include="Content\img\team-2.jpg" />
     <Content Include="Content\img\team-3.jpg" />
     <Content Include="Content\img\team-4.jpg" />
+    <Content Include="Content\img\tennis-home.jpg" />
     <Content Include="Content\img\testimonial-1.jpg" />
     <Content Include="Content\img\testimonial-2.jpg" />
     <Content Include="Content\img\testimonial-3.jpg" />
