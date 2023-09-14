@@ -125,6 +125,7 @@
     <Compile Include="Controllers\BadmintonController.cs" />
     <Compile Include="Controllers\BasketballController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
+    <Compile Include="Controllers\DatSanController.cs" />
     <Compile Include="Controllers\FootballController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatSan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -5472,11 +5474,12 @@
     <Content Include="Views\Basketball\Index.cshtml" />
     <Content Include="Views\Badminton\Index.cshtml" />
     <Content Include="Views\DangNhap\Index.cshtml" />
+    <Content Include="Views\DatSan\Index.cshtml" />
+    <Content Include="Views\Shared\LayoutDatSan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Property\" />
   </ItemGroup>
   <ItemGroup>
