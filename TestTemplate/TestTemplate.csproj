@@ -530,6 +530,7 @@
     <Content Include="Areas\ContentAdmin\images\profile\9.jpg" />
     <Content Include="Areas\ContentAdmin\images\profile\cover.jpg" />
     <Content Include="Areas\ContentAdmin\images\profile\profile.png" />
+    <Content Include="Areas\ContentAdmin\images\sport.png" />
     <Content Include="Areas\ContentAdmin\images\users\1.jpg" />
     <Content Include="Areas\ContentAdmin\images\users\2.jpg" />
     <Content Include="Areas\ContentAdmin\images\users\3.jpg" />
@@ -538,6 +539,7 @@
     <Content Include="Areas\ContentAdmin\images\users\6.jpg" />
     <Content Include="Areas\ContentAdmin\images\users\7.jpg" />
     <Content Include="Areas\ContentAdmin\images\users\8.jpg" />
+    <Content Include="Areas\ContentAdmin\images\users\avt_admin.png" />
     <Content Include="Areas\ContentAdmin\images\users\profile.jpg" />
     <Content Include="Areas\ContentAdmin\images\user\1.jpg" />
     <Content Include="Areas\ContentAdmin\images\user\1.png" />
