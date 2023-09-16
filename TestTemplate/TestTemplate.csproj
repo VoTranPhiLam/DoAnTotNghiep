@@ -5032,6 +5032,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\about.jpg" />
+    <Content Include="Content\img\avt_Loi.jpg" />
     <Content Include="Content\img\avt_Minh.jpg" />
     <Content Include="Content\img\badminton-home.jpg" />
     <Content Include="Content\img\basketball-home.jpg" />
@@ -5064,6 +5065,10 @@
     <Content Include="Content\img\san-cau-long.jpg" />
     <Content Include="Content\img\san-tennis.jpg" />
     <Content Include="Content\img\sanbong2.jpg" />
+    <Content Include="Content\img\san_gtvt.jpg" />
+    <Content Include="Content\img\san_lamson.jpg" />
+    <Content Include="Content\img\san_namly.jpg" />
+    <Content Include="Content\img\san_tvt.jpg" />
     <Content Include="Content\img\sb-home.jpg" />
     <Content Include="Content\img\sBongRo_3.jpg" />
     <Content Include="Content\img\sBongRo_4.jpg" />
