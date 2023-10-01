@@ -132,6 +132,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Controllers\BadmintonController.cs" />
     <Compile Include="Controllers\BasketballController.cs" />
+    <Compile Include="Controllers\CoSoController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\DatSanController.cs" />
     <Compile Include="Controllers\FootballController.cs" />
@@ -5101,28 +5102,28 @@
     <Content Include="Content\img\property-5.jpg" />
     <Content Include="Content\img\property-6.jpg" />
     <Content Include="Content\img\san-bong-ro-puzzle.jpg" />
-    <Content Include="Content\img\san-bong-ro.jpg" />
-    <Content Include="Content\img\san-cau-long.jpg" />
-    <Content Include="Content\img\san-tennis.jpg" />
-    <Content Include="Content\img\sanbong2.jpg" />
+    <Content Include="Content\img\sBongRo_NguyenDu.jpg" />
+    <Content Include="Content\img\san_cau_long_hvct.jpg" />
+    <Content Include="Content\img\sTennis_PS.jpg" />
+    <Content Include="Content\img\sanbongda_LT.jpg" />
     <Content Include="Content\img\san_gtvt.jpg" />
     <Content Include="Content\img\san_lamson.jpg" />
     <Content Include="Content\img\san_namly.jpg" />
     <Content Include="Content\img\san_tvt.jpg" />
     <Content Include="Content\img\sb-home.jpg" />
-    <Content Include="Content\img\sBongRo_3.jpg" />
+    <Content Include="Content\img\sBongRo_TDTT.jpg" />
     <Content Include="Content\img\sBongRo_4.jpg" />
     <Content Include="Content\img\sBongRo_5.jpg" />
     <Content Include="Content\img\sBongRo_6.jpg" />
     <Content Include="Content\img\sb_hvtc.jpg" />
-    <Content Include="Content\img\sCauLong_2.jpg" />
-    <Content Include="Content\img\sCauLong_3.jpg" />
+    <Content Include="Content\img\sCauLong_Rebell.jpg" />
+    <Content Include="Content\img\sCauLong_BinhThai.jpg" />
     <Content Include="Content\img\sCauLong_4.jpg" />
     <Content Include="Content\img\sCauLong_5.jpg" />
     <Content Include="Content\img\sCauLong_6.jpg" />
     <Content Include="Content\img\sport.png" />
-    <Content Include="Content\img\sTennis_2.jpg" />
-    <Content Include="Content\img\sTennis_3.jpg" />
+    <Content Include="Content\img\sTennis_NVKB.jpg" />
+    <Content Include="Content\img\sTennis_LamVien.jpg" />
     <Content Include="Content\img\sTennis_4.jpg" />
     <Content Include="Content\img\sTennis_5.jpg" />
     <Content Include="Content\img\sTennis_6.jpg" />
@@ -5556,6 +5557,10 @@
     <Content Include="Views\DangNhap\Index.cshtml" />
     <Content Include="Views\DatSan\Index.cshtml" />
     <Content Include="Views\Shared\LayoutDatSan.cshtml" />
+    <Content Include="Views\CoSo\CoSoBongDaPartial.cshtml" />
+    <Content Include="Views\CoSo\CoSoBongRoPartial.cshtml" />
+    <Content Include="Views\CoSo\CoSoCauLongPartial.cshtml" />
+    <Content Include="Views\CoSo\CoSoTennisPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
