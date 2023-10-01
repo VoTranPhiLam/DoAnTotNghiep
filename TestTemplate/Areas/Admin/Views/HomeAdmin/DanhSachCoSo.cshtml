@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TestTemplate.Models.coso>
+
+@{
+    ViewBag.Title = "DanhSachCoSo";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách cơ sở</h2>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <label class="control-label col-md-10 ">Tên cơ sở</label>
+        </th>
+        <th>
+            <label class="control-label col-md-10 ">Hình ảnh</label>
+        </th>
+        <th>
+            <label class="control-label col-md-10 ">Địa chỉ</label>
+        </th>
+        <th>
+            <label class="control-label col-md-10 ">Maps</label>
+        </th>
+        <th>
+            <label class="control-label col-md-10 ">Loại sân</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tencs)
+            </td>
+            <td>
+                <img class="img-responsive" src="@Url.Content("~/Content/img/" + item.hinhanh)" alt="" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.diachi)
+            </td>
+            <td style="word-break: break-word;">
+                @Html.DisplayFor(modelItem => item.link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.loaisan.tenls)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.macs }) |
+                @Html.ActionLink("Details", "Details", new { id = item.macs }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.macs })
+            </td>
+        </tr>
+    }
+
+</table>
+
