@@ -20,6 +20,7 @@ warning 6013: The table/view 'QuanLyDatSan.dbo.Adminn' does not have a primary k
           <Property Name="hinhanh" Type="varchar" MaxLength="50" />
           <Property Name="diachi" Type="nvarchar" MaxLength="255" />
           <Property Name="link" Type="varchar" MaxLength="500" />
+          <Property Name="mucgia" Type="nvarchar" MaxLength="50" />
           <Property Name="mals" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="KhachHang">
@@ -175,6 +176,7 @@ warning 6013: The table/view 'QuanLyDatSan.dbo.Adminn' does not have a primary k
           <NavigationProperty Name="loaisan" Relationship="Self.FK__coso__mals__4CA06362" FromRole="coso" ToRole="loaisan" />
           <NavigationProperty Name="NHANVIENs" Relationship="Self.FK__NHANVIEN__macs__5441852A" FromRole="coso" ToRole="NHANVIEN" />
           <NavigationProperty Name="sans" Relationship="Self.FK__san__macs__4F7CD00D" FromRole="coso" ToRole="san" />
+          <Property Name="mucgia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -328,6 +330,7 @@ warning 6013: The table/view 'QuanLyDatSan.dbo.Adminn' does not have a primary k
           <EntitySetMapping Name="cosoes">
             <EntityTypeMapping TypeName="QuanLyDatSanModel.coso">
               <MappingFragment StoreEntitySet="coso">
+                <ScalarProperty Name="mucgia" ColumnName="mucgia" />
                 <ScalarProperty Name="macs" ColumnName="macs" />
                 <ScalarProperty Name="tencs" ColumnName="tencs" />
                 <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />

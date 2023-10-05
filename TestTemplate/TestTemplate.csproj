@@ -5103,7 +5103,7 @@
     <Content Include="Content\img\property-6.jpg" />
     <Content Include="Content\img\san-bong-ro-puzzle.jpg" />
     <Content Include="Content\img\sBongRo_NguyenDu.jpg" />
-    <Content Include="Content\img\san_cau_long_hvct.jpg" />
+    <Content Include="Content\img\san-cau-long_hvct.jpg" />
     <Content Include="Content\img\sTennis_PS.jpg" />
     <Content Include="Content\img\sanbongda_LT.jpg" />
     <Content Include="Content\img\san_gtvt.jpg" />
@@ -5115,7 +5115,7 @@
     <Content Include="Content\img\sBongRo_Manhattan.jpg" />
     <Content Include="Content\img\sBongRo_RMIT.jpg" />
     <Content Include="Content\img\sBongRo_CVQ9.jpg" />
-    <Content Include="Content\img\sb_hvtc.jpg" />
+    <Content Include="Content\img\san_phudong.jpg" />
     <Content Include="Content\img\sCauLong_Rebell.jpg" />
     <Content Include="Content\img\sCauLong_BinhThai.jpg" />
     <Content Include="Content\img\sCauLong_DongPhuong.jpg" />
@@ -5124,9 +5124,9 @@
     <Content Include="Content\img\sport.png" />
     <Content Include="Content\img\sTennis_NVKB.jpg" />
     <Content Include="Content\img\sTennis_LamVien.jpg" />
-    <Content Include="Content\img\sTennis_DongQue.jpg" />
-    <Content Include="Content\img\sTennis_Bato.jpg" />
-    <Content Include="Content\img\sTennis_TDTT.jpg" />
+    <Content Include="Content\img\sTennis_DHNH.jpg" />
+    <Content Include="Content\img\sTennis_LT.jpg" />
+    <Content Include="Content\img\sTennis_CDCN.jpg" />
     <Content Include="Content\img\team-1.jpg" />
     <Content Include="Content\img\team-2.jpg" />
     <Content Include="Content\img\team-3.jpg" />

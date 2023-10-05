@@ -27,6 +27,7 @@ namespace TestTemplate.Models
         public string diachi { get; set; }
         public string link { get; set; }
         public string mals { get; set; }
+        public string mucgia { get; set; }
     
         public virtual loaisan loaisan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

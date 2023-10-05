@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestTemplate.Models;
 
 namespace TestTemplate.Controllers
 {
     public class BadmintonController : Controller
     {
         // GET: Badminton
+        QuanLyDatSanEntities db = new QuanLyDatSanEntities();
         public ActionResult Index()
         {
-            return View();
+            var lstCsCauLong = db.cosoes.Where(n => n.mals == "bmt");
+            return View(lstCsCauLong);
         }
     }
 }
