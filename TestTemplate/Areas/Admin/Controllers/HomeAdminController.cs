@@ -66,5 +66,12 @@ namespace TestTemplate.Areas.Admin.Controllers
             List<NHANVIEN> danhSachNhanVien = db.NHANVIENs.ToList();
             return View(danhSachNhanVien);
         }
+
+        public ActionResult DanhSachSan()
+        {
+            db = new QuanLyDatSanEntities();
+            List<san> dsSan = db.sans.ToList();
+            return View(dsSan);
+        }
     }
 }

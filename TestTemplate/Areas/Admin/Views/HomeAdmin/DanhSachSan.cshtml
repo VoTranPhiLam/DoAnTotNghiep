@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TestTemplate.Models.san>
+
+@{
+    ViewBag.Title = "DanhSachSan";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách sân </h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            <label class="control-label col-md-10 ">Số sân</label>
+        </th>
+        <th>
+            <label class="control-label col-md-10 ">Giá tiền</label>
+        </th>
+        <th>
+            <label class="control-label col-md-10 ">Tên cơ sở</label>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sosan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.giatien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coso.tencs)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.masan }) |
+            @Html.ActionLink("Details", "Details", new { id=item.masan }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.masan })
+        </td>
+    </tr>
+}
+
+</table>

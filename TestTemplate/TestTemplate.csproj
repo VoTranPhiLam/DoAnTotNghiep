@@ -5529,6 +5529,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\HomeAdmin\DanhSachCoSo.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DanhSachNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\DanhSachSan.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
