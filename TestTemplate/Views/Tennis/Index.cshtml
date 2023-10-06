@@ -1,4 +1,6 @@
-﻿
+﻿@using TestTemplate.Models
+@model IEnumerable<coso>
+
 @{
     ViewBag.Title = "Tennis";
     Layout = "~/Views/Shared/LayoutUser.cshtml";
@@ -18,78 +20,21 @@
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="~/DatSan"><img class="img-fluid" src="~/Content/img/sTennis_PS.jpg" alt=""></a>
-                            </div>
-                            <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">150.000đ - 300.000đ</h5>
-                                <a class="d-block h5 mb-2" href="https://maps.app.goo.gl/utFwKQvzTVYEinmL8" target="_blank">Sân Tennis P/S</a>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Phước Long A, Quận 9, Thành phố Hồ Chí Minh</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="~/DatSan"><img class="img-fluid" src="~/Content/img/sTennis_NVKB.jpg" alt=""></a>
-                            </div>
-                            <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">150.000đ - 200.000đ</h5>
-                                <a class="d-block h5 mb-2" href="https://maps.app.goo.gl/SMSqXo4MidqxzSXv7" target="_blank">Sân Tennis Trường Nghiệp Vụ Kho Bạc</a>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Võ Văn Hát, Long Trường, Quận 9, Thành phố Hồ Chí Minh</p>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="property-item rounded overflow-hidden">
+                                <div class="position-relative overflow-hidden">
+                                    <a href="~/DatSan"><img class="img-fluid" src="@Url.Content("~/Content/img/" + item.hinhanh)" alt=""></a>
+                                </div>
+                                <div class="p-4 pb-0">
+                                    <h5 class="text-primary mb-3">@item.mucgia</h5>
+                                    <a class="d-block h5 mb-2" href="@item.link" target="_blank">@item.tencs</a>
+                                    <p><i class="fa fa-map-marker-alt text-primary me-2"></i>@item.diachi</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="~/DatSan"><img class="img-fluid" src="~/Content/img/sTennis_LamVien.jpg" alt=""></a>
-                            </div>
-                            <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">150.000đ - 250.000đ</h5>
-                                <a class="d-block h5 mb-2" href="https://maps.app.goo.gl/NqU5yyNgw885H9hT8" target="_blank">Sân tennis Lâm Viên</a>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>155 Linh Trung, Khu phố 1, Phường Linh Trung, quận Thủ Đức, TP Hồ Chí Minh.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="~/DatSan"><img class="img-fluid" src="~/Content/img/sTennis_DHNH.jpg" alt=""></a>
-                            </div>
-                            <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">150.000đ - 250.000đ</h5>
-                                <a class="d-block h5 mb-2" href="https://maps.app.goo.gl/zY5uoUszFWrPcSZr8" target="_blank">Sân tennis Đồng Quê</a>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>2/5 Bình Quới 2.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="~/DatSan"><img class="img-fluid" src="~/Content/img/sTennis_LT.jpg" alt=""></a>
-                            </div>
-                            <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">180.000đ - 300.000đ</h5>
-                                <a class="d-block h5 mb-2" href="https://maps.app.goo.gl/u9eyrCHjyfozwNRY8" target="_blank">CLB Tennis Bato Thủ Đức</a>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>113/10 Lê Văn Trí, Phường Linh Trung, Thủ Đức.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="~/DatSan"><img class="img-fluid" src="~/Content/img/sTennis_TDTT.jpg" alt=""></a>
-                            </div>
-                            <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">180.000đ - 250.000đ</h5>
-                                <a class="d-block h5 mb-2" href="https://maps.app.goo.gl/En5E4V3Kc5H3Xkfh6" target="_blank">Sân Tennis trung tâm TDTT Quận 9</a>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i> 343 Lê Văn Việt, Phường Tăng Nhơn Phú A, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh</p>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
