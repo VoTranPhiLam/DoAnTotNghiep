@@ -11,7 +11,7 @@ namespace TestTemplate.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         // GET: Admin/HomeAdmin
-        QuanLyDatSanEntities db;
+        QuanLyDatSanEntities db = new QuanLyDatSanEntities();
         public ActionResult Index()
         {
             if(Session["user"] == null)
@@ -28,7 +28,7 @@ namespace TestTemplate.Areas.Admin.Controllers
         public ActionResult DangNhap(string user, string password)
         {
             //Check db
-
+                
             //Check code
             if(user.ToLower() == "admin" && password == "1234")
             {
@@ -52,26 +52,26 @@ namespace TestTemplate.Areas.Admin.Controllers
             return RedirectToAction("DangNhap");
         }
 
-        public ActionResult DanhSachCoSo()
-        {
-            //1. Lấy danh sách dữ liệu trong bảng
-            db = new QuanLyDatSanEntities();
-            List<coso> danhSachCoSo = db.cosoes.ToList();  
-            return View(danhSachCoSo);
-        }
+        //public ActionResult DanhSachCoSo()
+        //{
+        //    //1. Lấy danh sách dữ liệu trong bảng
+        //    List<coso> danhSachCoSo = db.cosoes.ToList();  
+        //    return View(danhSachCoSo);
+        //}
 
         public ActionResult DanhSachNhanVien()
         {
-            db = new QuanLyDatSanEntities();
             List<NHANVIEN> danhSachNhanVien = db.NHANVIENs.ToList();
             return View(danhSachNhanVien);
         }
 
         public ActionResult DanhSachSan()
         {
-            db = new QuanLyDatSanEntities();
             List<san> dsSan = db.sans.ToList();
             return View(dsSan);
         }
+
+
+
     }
 }

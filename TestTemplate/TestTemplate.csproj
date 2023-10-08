@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CoSoController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Controllers\BadmintonController.cs" />
     <Compile Include="Controllers\BasketballController.cs" />
@@ -5527,9 +5528,11 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\HomeAdmin\DanhSachCoSo.cshtml" />
+    <Content Include="Areas\Admin\Views\CoSo\DanhSachCoSo.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DanhSachNhanVien.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DanhSachSan.cshtml" />
+    <Content Include="Areas\Admin\Views\CoSo\ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\CoSo\CapNhat.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -6,7 +6,9 @@
 }
 
 <h2>Danh sách cơ sở</h2>
-
+<p>
+    <a href="@Url.Action("ThemMoi", "CoSo", new { area = "Admin" })">Thêm mới</a>
+</p>
 
 <table class="table table-bordered">
     <tr>
@@ -47,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.loaisan.tenls)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.macs }) |
+                @Html.ActionLink("Cập nhật", "CapNhat", new { id = item.macs }) |
                 @Html.ActionLink("Details", "Details", new { id = item.macs }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.macs })
             </td>
