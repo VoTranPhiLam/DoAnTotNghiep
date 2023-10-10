@@ -5156,6 +5156,7 @@
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
     <Content Include="Content\lib\wow\wow.js" />
     <Content Include="Content\lib\wow\wow.min.js" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -5565,6 +5566,9 @@
     <Content Include="Views\CoSo\CoSoBongRoPartial.cshtml" />
     <Content Include="Views\CoSo\CoSoCauLongPartial.cshtml" />
     <Content Include="Views\CoSo\CoSoTennisPartial.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\DatSan\XacNhanDatSan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

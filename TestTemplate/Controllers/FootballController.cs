@@ -13,7 +13,9 @@ namespace TestTemplate.Controllers
         QuanLyDatSanEntities db = new QuanLyDatSanEntities();
         public ActionResult Index()
         {
-            var lstCSBongDa = db.cosoes.Where(n => n.mals == "f");
+            // Lấy thông báo đặt sân thành công từ TempData (nếu có)
+            ViewBag.ThongBaoDatSan = TempData["ThongBaoDatSan"] as string;
+            var lstCSBongDa = db.cosoes.Where(n => n.mals == "f");  
             //ViewBag.CsBongDa = lstCSBongDa;
             return View(lstCSBongDa);
         }
