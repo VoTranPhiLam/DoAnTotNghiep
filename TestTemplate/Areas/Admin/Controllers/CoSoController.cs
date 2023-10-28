@@ -10,11 +10,11 @@ namespace TestTemplate.Areas.Admin.Controllers
     public class CoSoController : Controller
     {
         // GET: Admin/CoSo
-        QuanLyDatSanEntities db = new QuanLyDatSanEntities();
+        QLDSEntities db = new QLDSEntities();
 
         public ActionResult DanhSachCoSo()
         {
-            List<coso> danhSachCoSo = db.cosoes.ToList();
+            List<CoSo> danhSachCoSo = db.CoSoes.ToList();
             return View(danhSachCoSo);
         }
 
@@ -24,26 +24,28 @@ namespace TestTemplate.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult ThemMoi(coso model, HttpPostedFileBase fileAnh)
+        public ActionResult ThemMoi(CoSo model, HttpPostedFileBase fileAnh)
         {
-            if(string.IsNullOrEmpty(model.macs) == true || string.IsNullOrEmpty(model.tencs) == true ||
-                string.IsNullOrEmpty(model.hinhanh) == true || string.IsNullOrEmpty(model.link) == true ||
-                    string.IsNullOrEmpty(model.mucgia) == true || string.IsNullOrEmpty(model.diachi) == true)
-            {
-                ModelState.AddModelError("", "Thiếu thông tin");
-                return View(model);
-            }
-
             if (fileAnh.ContentLength > 0)
             {
                 string rootFolder = Server.MapPath("/Content/img/");
                 string pathImage = rootFolder + fileAnh.FileName;
                 fileAnh.SaveAs(pathImage);
+                model.HinhAnh = fileAnh.FileName;
             }
 
+            if (string.IsNullOrEmpty(model.MaCS) == true || string.IsNullOrEmpty(model.TenCS) == true ||
+                string.IsNullOrEmpty(model.HinhAnh) == true || string.IsNullOrEmpty(model.LinkMap) == true ||
+                    string.IsNullOrEmpty(model.MucGia) == true || string.IsNullOrEmpty(model.DiaChi) == true)
+            {
+                ModelState.AddModelError("", "Thiếu thông tin");
+                return View(model);
+            }
+
+           
             try
             {
-                db.cosoes.Add(model);
+                db.CoSoes.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("DanhSachCoSo");
             }
@@ -54,38 +56,42 @@ namespace TestTemplate.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult CapNhat(string maCS)
+        public ActionResult CapNhat(string id)
         {
-            var model_Edit = db.cosoes.Find(maCS);
+            var model_Edit = db.CoSoes.Find(id);
             return View(model_Edit);
         }
 
         [HttpPost]
-        public ActionResult CapNhat(coso model_Edit, HttpPostedFileBase fileAnh)
+        public ActionResult CapNhat(CoSo model_Edit, HttpPostedFileBase fileAnh)
         {
-            if (string.IsNullOrEmpty(model_Edit.macs) == true || string.IsNullOrEmpty(model_Edit.tencs) == true ||
-                string.IsNullOrEmpty(model_Edit.hinhanh) == true || string.IsNullOrEmpty(model_Edit.link) == true ||
-                    string.IsNullOrEmpty(model_Edit.mucgia) == true || string.IsNullOrEmpty(model_Edit.diachi) == true)
-            {
-                ModelState.AddModelError("", "Thiếu thông tin");
-                return View(model_Edit);
-            }
-            
             if (fileAnh.ContentLength > 0)
             {
                 string rootFolder = Server.MapPath("/Content/img/");
                 string pathImage = rootFolder + fileAnh.FileName;
                 fileAnh.SaveAs(pathImage);
+                model_Edit.HinhAnh = fileAnh.FileName;
             }
 
-            var updateCoSo = db.cosoes.Find(model_Edit.macs);
+            if (string.IsNullOrEmpty(model_Edit.TenCS) == true ||
+                string.IsNullOrEmpty(model_Edit.HinhAnh) == true || string.IsNullOrEmpty(model_Edit.LinkMap) == true ||
+                    string.IsNullOrEmpty(model_Edit.MucGia) == true || string.IsNullOrEmpty(model_Edit.DiaChi) == true)
+            {
+                ModelState.AddModelError("", "Thiếu thông tin");
+                return View(model_Edit);
+            }
+            
+           
+
+            var updateCoSo = db.CoSoes.Find(model_Edit.MaCS);
             try
             {
-                updateCoSo.tencs = model_Edit.tencs;
-                updateCoSo.hinhanh = model_Edit.hinhanh;
-                updateCoSo.diachi = model_Edit.diachi;
-                updateCoSo.link = model_Edit.link;
-                updateCoSo.mucgia = model_Edit.mucgia;
+                updateCoSo.TenCS = model_Edit.TenCS;
+                updateCoSo.HinhAnh = model_Edit.HinhAnh;
+                updateCoSo.DiaChi = model_Edit.DiaChi;
+                updateCoSo.LinkMap = model_Edit.LinkMap;
+                updateCoSo.MucGia = model_Edit.MucGia;
+                updateCoSo.MaLoaiCS = model_Edit.MaLoaiCS;
 
                 db.SaveChanges();
                 return RedirectToAction("DanhSachCoSo");
@@ -95,6 +101,14 @@ namespace TestTemplate.Areas.Admin.Controllers
                 ModelState.AddModelError("", ex.Message);
                 return View(model_Edit);
             }
+        }
+
+        public ActionResult Xoa(string id)
+        {
+            var model = db.CoSoes.Find(id);
+            db.CoSoes.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("DanhSachCoSo");
         }
     }
 }

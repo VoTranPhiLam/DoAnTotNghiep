@@ -12,15 +12,24 @@ namespace TestTemplate.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class lichdat
+    public partial class LichDat
     {
-        public string MaDatSan { get; set; }
-        public string MaKhachHang { get; set; }
-        public string masan { get; set; }
-        public Nullable<System.DateTime> TGianBatDau { get; set; }
-        public Nullable<System.DateTime> TGianKetThuc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LichDat()
+        {
+            this.HoaDons = new HashSet<HoaDon>();
+        }
     
-        public virtual KhachHang KhachHang { get; set; }
-        public virtual san san { get; set; }
+        public string MaLichDat { get; set; }
+        public string MaKhachHang { get; set; }
+        public string MaSan { get; set; }
+        public Nullable<System.DateTime> ThoiGianBatDau { get; set; }
+        public Nullable<System.DateTime> ThoiGianKetThuc { get; set; }
+        public string TrangThai { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public virtual user_KhachHang user_KhachHang { get; set; }
+        public virtual San San { get; set; }
     }
 }

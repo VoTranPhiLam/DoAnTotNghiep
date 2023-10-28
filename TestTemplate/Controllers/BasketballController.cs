@@ -10,10 +10,11 @@ namespace TestTemplate.Controllers
     public class BasketballController : Controller
     {
         // GET: Basketball
-        QuanLyDatSanEntities db = new QuanLyDatSanEntities();
+        QLDSEntities db = new QLDSEntities();
         public ActionResult Index()
         {
-            var lstCsBongRo = db.cosoes.Where(n => n.mals == "br");
+           
+            var lstCsBongRo = db.CoSoes.Where(n => n.MaLoaiCS == "bongRo");
             return View(lstCsBongRo);
         }
     }

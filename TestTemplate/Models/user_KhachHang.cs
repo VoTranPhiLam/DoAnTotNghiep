@@ -12,20 +12,25 @@ namespace TestTemplate.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class KhachHang
+    public partial class user_KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KhachHang()
+        public user_KhachHang()
         {
-            this.lichdats = new HashSet<lichdat>();
+            this.HoaDons = new HashSet<HoaDon>();
+            this.LichDats = new HashSet<LichDat>();
         }
     
-        public string MaKhachHang { get; set; }
+        public string MaKH { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
         public string HoTen { get; set; }
         public string SoDienThoai { get; set; }
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lichdat> lichdats { get; set; }
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichDat> LichDats { get; set; }
     }
 }

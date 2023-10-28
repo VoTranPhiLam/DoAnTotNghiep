@@ -11,7 +11,7 @@ namespace TestTemplate.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         // GET: Admin/HomeAdmin
-        QuanLyDatSanEntities db = new QuanLyDatSanEntities();
+        QLDSEntities db = new QLDSEntities();
         public ActionResult Index()
         {
             if(Session["user"] == null)
@@ -28,7 +28,7 @@ namespace TestTemplate.Areas.Admin.Controllers
         public ActionResult DangNhap(string user, string password)
         {
             //Check db
-                
+               
             //Check code
             if(user.ToLower() == "admin" && password == "1234")
             {
@@ -61,17 +61,21 @@ namespace TestTemplate.Areas.Admin.Controllers
 
         public ActionResult DanhSachNhanVien()
         {
-            List<NHANVIEN> danhSachNhanVien = db.NHANVIENs.ToList();
+            List<NhanVien> danhSachNhanVien = db.NhanViens.ToList();
             return View(danhSachNhanVien);
         }
 
         public ActionResult DanhSachSan()
         {
-            List<san> dsSan = db.sans.ToList();
+            List<San> dsSan = db.Sans.ToList();
             return View(dsSan);
         }
 
-
+        public ActionResult DanhSachLichDat()
+        {
+            List<LichDat> dsLichDat = db.LichDats.ToList();
+            return View(dsLichDat);
+        }
 
     }
 }

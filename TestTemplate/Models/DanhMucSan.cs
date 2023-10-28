@@ -12,24 +12,20 @@ namespace TestTemplate.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CoSo
+    public partial class DanhMucSan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CoSo()
+        public DanhMucSan()
         {
-            this.DanhMucSans = new HashSet<DanhMucSan>();
+            this.Sans = new HashSet<San>();
         }
     
+        public string MaDanhMuc { get; set; }
+        public string LoaiSan { get; set; }
         public string MaCS { get; set; }
-        public string TenCS { get; set; }
-        public string HinhAnh { get; set; }
-        public string DiaChi { get; set; }
-        public string LinkMap { get; set; }
-        public string MucGia { get; set; }
-        public string MaLoaiCS { get; set; }
     
-        public virtual LoaiCoSo LoaiCoSo { get; set; }
+        public virtual CoSo CoSo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhMucSan> DanhMucSans { get; set; }
+        public virtual ICollection<San> Sans { get; set; }
     }
 }

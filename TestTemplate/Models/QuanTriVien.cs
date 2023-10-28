@@ -12,18 +12,20 @@ namespace TestTemplate.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class loaisan
+    public partial class QuanTriVien
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public loaisan()
+        public QuanTriVien()
         {
-            this.cosoes = new HashSet<coso>();
+            this.NhanViens = new HashSet<NhanVien>();
         }
     
-        public string mals { get; set; }
-        public string tenls { get; set; }
+        public string MaQTV { get; set; }
+        public string LoaiQTV { get; set; }
+        public string TenDangNhap { get; set; }
+        public string MatKhau { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<coso> cosoes { get; set; }
+        public virtual ICollection<NhanVien> NhanViens { get; set; }
     }
 }
