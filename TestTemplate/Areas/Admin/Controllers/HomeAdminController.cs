@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using TestTemplate.Models;    
+using TestTemplate.Models;
+using PagedList;
 
 namespace TestTemplate.Areas.Admin.Controllers
 {
@@ -14,68 +15,48 @@ namespace TestTemplate.Areas.Admin.Controllers
         QLDSEntities db = new QLDSEntities();
         public ActionResult Index()
         {
-            if(Session["user"] == null)
-                return RedirectToAction("DangNhap");
-            else 
                 return View();
-        }
-
-        public ActionResult DangNhap()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult DangNhap(string user, string password)
-        {
-            //Check db
-               
-            //Check code
-            if(user.ToLower() == "admin" && password == "1234")
-            {
-                Session["user"] = "admin"; // phiên làm việc;
-                return RedirectToAction("Index");
-            }    
-            else
-            {
-                TempData["error"] = "Tên đăng nhập hoặc mật khẩu không đúng !";
-                return View();
-            }
         }
 
         public ActionResult DangXuat()
         {
             //xóa session
-            Session.Remove("user");
+            Session.Remove("admin");
             // Xóa authentication form
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("DangNhap");
+            return RedirectToAction("DangNhap", "DangNhap", new { area = "" });
         }
 
-        //public ActionResult DanhSachCoSo()
-        //{
-        //    //1. Lấy danh sách dữ liệu trong bảng
-        //    List<coso> danhSachCoSo = db.cosoes.ToList();  
-        //    return View(danhSachCoSo);
-        //}
-
-        public ActionResult DanhSachNhanVien()
+        public ActionResult DanhSachNhanVien(int? page)
         {
             List<NhanVien> danhSachNhanVien = db.NhanViens.ToList();
-            return View(danhSachNhanVien);
+
+            //Tạo biến số sản phẩm trên trang
+            int PageSize = 6;
+            // Tạo biến số trang hiện tại
+            int PageNumber = (page ?? 1);
+            return View(danhSachNhanVien.OrderBy(n => n.MaNV).ToPagedList(PageNumber, PageSize));
         }
 
-        public ActionResult DanhSachSan()
+        public ActionResult DanhSachSan(int? page)
         {
             List<San> dsSan = db.Sans.ToList();
-            return View(dsSan);
+            //Tạo biến số sản phẩm trên trang
+            int PageSize = 6;
+            // Tạo biến số trang hiện tại
+            int PageNumber = (page ?? 1);
+            return View(dsSan.OrderBy(n => n.MaSan).ToPagedList(PageNumber, PageSize));
         }
 
-        public ActionResult DanhSachLichDat()
+        public ActionResult DanhSachLichDat(int? page)
         {
             List<LichDat> dsLichDat = db.LichDats.ToList();
-            return View(dsLichDat);
+            //Tạo biến số sản phẩm trên trang
+            int PageSize = 6;
+            // Tạo biến số trang hiện tại
+            int PageNumber = (page ?? 1);
+            return View(dsLichDat.OrderBy(n => n.MaLichDat).ToPagedList(PageNumber, PageSize));
         }
-
     }
 }

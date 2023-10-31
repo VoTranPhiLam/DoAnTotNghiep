@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,8 +17,6 @@ namespace TestTemplate.Controllers
         {
             Session["ten_coso"] = ten_coso;
             Session["id_coso"] = id_coso;
-
-            
             return View();
         }
 
@@ -54,12 +53,12 @@ namespace TestTemplate.Controllers
 
                 return View(model);
             }
-
             var danhMucSan = db.DanhMucSans.SingleOrDefault(dm => dm.MaDanhMuc == model.ma_danhmuc);
             if (danhMucSan != null)
             {
                 TempData["LoaiSan"] = danhMucSan.LoaiSan;
             }
+
             var khachhang = Session["user"] as user_KhachHang;
 
             model.ma_KH = khachhang.MaKH;
@@ -103,7 +102,17 @@ namespace TestTemplate.Controllers
             DateTime.TryParse(batdau, out gio_da);
             DateTime.TryParse(ketthuc, out gio_nghi);
 
-
+            // cập nhật lại nếu như có lịch đặt bị trùng nhưng trạng thái là "Đã huỷ"
+            var lichdattrung = db.LichDats.Where(c => c.MaSan == model.ma_San && c.TrangThai == "Đã huỷ" && KiemTraTrungLich(c,gio_da,gio_nghi)) as LichDat;
+            if(lichdattrung!= null)
+            {
+                lichdattrung.TrangThai = "Chưa diễn ra";
+                lichdattrung.MaKhachHang = model.ma_KH;
+                db.SaveChanges();
+                TempData["ThongBaoDatSan"] = "Đặt sân thành công!";
+            }
+            // nếu không có lịch đặt trùng nào thì tạo lịch đặt mới 
+            else { 
             string newMaSan = TimMaSanMoi();
 
             LichDat ld_ms = new LichDat
@@ -113,14 +122,15 @@ namespace TestTemplate.Controllers
                 MaSan = model.ma_San,
                 ThoiGianBatDau = gio_da,
                 ThoiGianKetThuc = gio_nghi,
-                TrangThai = "Chưa đá"
+                TrangThai = "Chưa diễn ra"
             };
 
-            db.LichDats.Add(ld_ms);
-
+                db.LichDats.Add(ld_ms);
             // Lưu thay đổi vào cơ sở dữ liệu
             db.SaveChanges();
+              
             TempData["ThongBaoDatSan"] = "Đặt sân thành công!";
+            }
             // Chuyển hướng sau khi lưu vào cơ sở dữ liệu
             return RedirectToAction("Index","Home");
         }
@@ -165,11 +175,16 @@ namespace TestTemplate.Controllers
                 {
                     if (KiemTraTrungLich(lich, gioBatDau, gioKetThuc))
                     {
-                        sanTrong = false;
-                        break;
+                        if (lich.TrangThai == "Đã huỷ") {
+                            continue;
+                        }
+                        else
+                        {
+                            sanTrong = false;
+                            break;
+                        }  
                     }
                 }
-
                 if (sanTrong)
                 {
                     maSanTrong = san.MaSan; // Lưu lại mã sân trống
@@ -177,7 +192,6 @@ namespace TestTemplate.Controllers
                     break; // Thoát khỏi vòng lặp khi tìm thấy sân trống
                 }
             }
-
             if (coSanTrong)
             {
                 return maSanTrong; // Trả về mã sân trống
@@ -185,7 +199,6 @@ namespace TestTemplate.Controllers
 
             return null; // Không có sân nào trống
         }
-
 
         // Phương thức kiểm tra trùng lịch
         private bool KiemTraTrungLich(LichDat lich, DateTime gioBatDau, DateTime gioKetThuc)
@@ -195,9 +208,9 @@ namespace TestTemplate.Controllers
                 (gioKetThuc > lich.ThoiGianBatDau && gioKetThuc <= lich.ThoiGianKetThuc) ||
                 (gioBatDau <= lich.ThoiGianBatDau && gioKetThuc >= lich.ThoiGianKetThuc))
             {
-                return true; // Có trùng lịch
+                 return true; // Có trùng lịch
+               
             }
-
             return false; // Không trùng lịch
         }
 
@@ -218,7 +231,5 @@ namespace TestTemplate.Controllers
             return true; // Thời gian hợp lệ.
         }
 
-      
-       
     }
 }
