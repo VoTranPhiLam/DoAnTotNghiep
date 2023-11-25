@@ -48,7 +48,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="">
+                <a href="@Url.Action("Index","ThongKe")">
                     <b class="logo-abbr"><img src="~/Areas/ContentAdmin/images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="~/Areas/ContentAdmin/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
@@ -71,19 +71,24 @@
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
+               
                 <div class="header-left">
-                    <div class="input-group icons">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                    @using (Html.BeginForm("TimKiem", "TimKiem_Admin"))
+                    {
+                        <div class="input-group icons">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                            </div>
+                            <input type="search" name="sTuKhoa" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
+                            @*<div class="drop-down animated flipInX d-md-none">
+                    <form action="#">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm">
+                    </form>
+                </div>*@
                         </div>
-                        <input type="search" class="form-control" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
-                        <div class="drop-down animated flipInX d-md-none">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Tìm kiếm">
-                            </form>
-                        </div>
+                    }
                     </div>
-                </div>
+                
                 <div class="header-right">
                     <ul class="clearfix">
                         <li class="icons dropdown d-none d-md-flex">
@@ -124,10 +129,10 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="@Url.Action("DanhSachCoSo", "CoSo")">Cơ sở</a></li>
-                            <li><a href="@Url.Action("DanhSachNhanVien", "HomeAdmin")">Nhân viên</a></li>
-                            <li><a href="@Url.Action("DanhSachSan", "HomeAdmin")">Sân</a></li>
+                            <li><a href="@Url.Action("DanhSachNhanVien", "NhanVien")">Nhân viên</a></li>
+                            <li><a href="@Url.Action("DanhSachSan", "San")">Sân</a></li>
                             <li><a href="@Url.Action("DanhSachPhanCong", "PhanCong")">Phân công</a></li>
-                            <li><a href="">Khách hàng</a></li>
+                            <li><a href="@Url.Action("DanhSachKhachHang", "KhachHang")">Khách hàng</a></li>
                             <li><a href="@Url.Action("DanhSachLichDat", "HomeAdmin")">Lịch đặt</a></li>
 
 
@@ -144,53 +149,9 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
             <div class="container-fluid mt-3">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-1">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">Số sân đã đặt</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white">10 sân</h2>
-                                </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-2">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">Doanh thu</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white">$500</h2>
-                                </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-3">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">Khách hàng</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white">30</h2>
-                                </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-4">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">Mức độ hài lòng</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white">50%</h2>
-                                </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
-                            </div>
-                        </div>
-                    </div>
+                    @RenderSection("ThongKe", false)
                     @RenderBody()
                 </div>
             </div>

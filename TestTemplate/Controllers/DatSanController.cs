@@ -12,6 +12,8 @@ namespace TestTemplate.Controllers
     {
         // GET: DatSan
         QLDSEntities db = new QLDSEntities();
+        private static int MaHD = 1; // Biến đếm mã hóa đơn
+        private static int MaCTHD = 1; // Biến đếm mã CTHD
 
         public ActionResult Index(string id_coso, string ten_coso)
         {
@@ -24,14 +26,14 @@ namespace TestTemplate.Controllers
         [HttpPost]
         public ActionResult Index(DatSan model)
         {
-            
+
             // kiểm tra dữ liệu
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             // kết hợp biến ngày đặt vs giờ đá
-            string batdau = model.ngayDatSan+" "+model.gioBatDau;
+            string batdau = model.ngayDatSan + " " + model.gioBatDau;
             string ketthuc = model.ngayDatSan + " " + model.gioKetThuc;
 
             DateTime gio_da = new DateTime();
@@ -45,8 +47,8 @@ namespace TestTemplate.Controllers
                 ModelState.AddModelError("", "Thời gian bạn chọn không hợp lệ, vui lòng chọn lại\n  Thời gian mở cửa từ 7 giờ sáng đến 23 giờ cùng ngày.\nTổng thời gian trận đấu phải kéo dài từ 30 phút trở lên và không được đặt quá 1 tháng trước thời gian hiện tại.");
                 return View(model);
             }
-  
-            string maSanTrong = TimMaSanTrong(gio_da,gio_nghi,model.ma_danhmuc);
+
+            string maSanTrong = TimMaSanTrong(gio_da, gio_nghi, model.ma_danhmuc);
             if (maSanTrong == null)
             {
                 ModelState.AddModelError("", "Hiện cơ sở đã hết sân trống trong khung giờ bạn chọn Vui lòng chọn khung giờ khác");
@@ -63,11 +65,11 @@ namespace TestTemplate.Controllers
 
             model.ma_KH = khachhang.MaKH;
             model.ma_San = maSanTrong;
-    
+
             // Lưu model vào TempData để sử dụng sau này
             TempData["ThongTinDatSan"] = model;
 
-            return RedirectToAction("XacNhanDatSan",model);
+            return RedirectToAction("XacNhanDatSan", model);
         }
 
         public ActionResult XacNhanDatSan(DatSan model)
@@ -78,7 +80,7 @@ namespace TestTemplate.Controllers
         [HttpPost]
         public ActionResult XacNhanDatSan()
         {
-           
+
             var model = TempData["ThongTinDatSan"] as DatSan;
             if (model == null)
             {
@@ -103,8 +105,8 @@ namespace TestTemplate.Controllers
             DateTime.TryParse(ketthuc, out gio_nghi);
 
             // cập nhật lại nếu như có lịch đặt bị trùng nhưng trạng thái là "Đã huỷ"
-            var lichdattrung = db.LichDats.Where(c => c.MaSan == model.ma_San && c.TrangThai == "Đã huỷ" && KiemTraTrungLich(c,gio_da,gio_nghi)) as LichDat;
-            if(lichdattrung!= null)
+            var lichdattrung = db.LichDats.Where(c => c.MaSan == model.ma_San && c.TrangThai == "Đã huỷ" && KiemTraTrungLich(c, gio_da, gio_nghi)) as LichDat;
+            if (lichdattrung != null)
             {
                 lichdattrung.TrangThai = "Chưa diễn ra";
                 lichdattrung.MaKhachHang = model.ma_KH;
@@ -112,27 +114,28 @@ namespace TestTemplate.Controllers
                 TempData["ThongBaoDatSan"] = "Đặt sân thành công!";
             }
             // nếu không có lịch đặt trùng nào thì tạo lịch đặt mới 
-            else { 
-            string newMaSan = TimMaSanMoi();
-
-            LichDat ld_ms = new LichDat
+            else
             {
-                MaLichDat = newMaSan,
-                MaKhachHang = model.ma_KH,
-                MaSan = model.ma_San,
-                ThoiGianBatDau = gio_da,
-                ThoiGianKetThuc = gio_nghi,
-                TrangThai = "Chưa diễn ra"
-            };
+                string newMaSan = TimMaSanMoi();
+
+                LichDat ld_ms = new LichDat
+                {
+                    MaLichDat = newMaSan,
+                    MaKhachHang = model.ma_KH,
+                    MaSan = model.ma_San,
+                    ThoiGianBatDau = gio_da,
+                    ThoiGianKetThuc = gio_nghi,
+                    TrangThai = "Chưa diễn ra"
+                };
 
                 db.LichDats.Add(ld_ms);
-            // Lưu thay đổi vào cơ sở dữ liệu
-            db.SaveChanges();
-              
-            TempData["ThongBaoDatSan"] = "Đặt sân thành công!";
+                // Lưu thay đổi vào cơ sở dữ liệu
+                db.SaveChanges();
+                HoaDon();
+                TempData["ThongBaoDatSan"] = "Đặt sân thành công!";
             }
             // Chuyển hướng sau khi lưu vào cơ sở dữ liệu
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         // Phương thức để tạo mã sân mới
@@ -175,14 +178,15 @@ namespace TestTemplate.Controllers
                 {
                     if (KiemTraTrungLich(lich, gioBatDau, gioKetThuc))
                     {
-                        if (lich.TrangThai == "Đã huỷ") {
+                        if (lich.TrangThai == "Đã huỷ")
+                        {
                             continue;
                         }
                         else
                         {
                             sanTrong = false;
                             break;
-                        }  
+                        }
                     }
                 }
                 if (sanTrong)
@@ -208,8 +212,8 @@ namespace TestTemplate.Controllers
                 (gioKetThuc > lich.ThoiGianBatDau && gioKetThuc <= lich.ThoiGianKetThuc) ||
                 (gioBatDau <= lich.ThoiGianBatDau && gioKetThuc >= lich.ThoiGianKetThuc))
             {
-                 return true; // Có trùng lịch
-               
+                return true; // Có trùng lịch
+
             }
             return false; // Không trùng lịch
         }
@@ -231,5 +235,126 @@ namespace TestTemplate.Controllers
             return true; // Thời gian hợp lệ.
         }
 
+        public void HoaDon()
+        {
+            // lấy mã lịch đặt mới nhất
+            var maLDMoiNhat = db.LichDats
+                .OrderByDescending(ld => ld.MaLichDat)
+                .Select(ld => ld.MaLichDat)
+                .FirstOrDefault().ToString();
+
+            // lấy mã khách hàng
+            var maKHDatSan = db.LichDats
+                .OrderByDescending(ld => ld.MaLichDat)
+                .Select(ld => ld.MaKhachHang)
+                .FirstOrDefault().ToString();
+
+            // lấy mã nhân viên
+            var maNV =  (from ld in db.LichDats
+                        join s in db.Sans on ld.MaSan equals s.MaSan
+                        join dm in db.DanhMucSans on s.MaDanhMuc equals dm.MaDanhMuc
+                        join cs in db.CoSoes on dm.MaCS equals cs.MaCS
+                        join pc in db.PhanCongs on cs.MaCS equals pc.MaCS
+                        select pc.MaNV)
+                        .OrderByDescending(nv => nv)
+                        .FirstOrDefault()
+                        .ToString();
+
+            string TrangThai = "Chưa thanh toán";
+
+            var lastInvoice = db.HoaDons.OrderByDescending(hd => hd.MaHoaDon).FirstOrDefault();
+            if (lastInvoice != null)
+            {
+                // Nếu có hóa đơn trong cơ sở dữ liệu, lấy giá trị của MaHoaDon lớn nhất và tăng lên 1.
+                MaHD = int.Parse(lastInvoice.MaHoaDon) + 1;
+            }
+            // Tạo mã hóa đơn dưới dạng "001", "002", ...
+            string maHD = $"{MaHD:D3}";
+            MaHD++;
+
+            // Thêm hóa đơn vào cơ sở dữ liệu
+            HoaDon hoaDon = new HoaDon()
+            {
+                MaHoaDon = maHD,
+                MaLichDat = maLDMoiNhat,
+                MaKhachHang = maKHDatSan,
+                MaNV = maNV,
+                NgayTao = DateTime.Now,
+                TrangThai = TrangThai
+            };
+            db.HoaDons.Add(hoaDon);
+            db.SaveChanges();
+
+            // Lấy dữ liệu để thêm vào CTHD
+
+            // Mã CTHD
+            var lastInvoiceDetails = db.CTHDs.OrderByDescending(cthd => cthd.MaCTHD).FirstOrDefault();
+            if (lastInvoiceDetails != null)
+            {
+                // Nếu có hóa đơn trong cơ sở dữ liệu, lấy giá trị của MaHoaDon lớn nhất và tăng lên 1.
+                MaCTHD = int.Parse(lastInvoiceDetails.MaCTHD) + 1;
+            }
+            // Tạo mã hóa đơn dưới dạng "001", "002", ...
+            string maCTHD = $"{MaCTHD:D3}";
+            MaCTHD++;
+
+            // NgayDat
+            var ngayDat = db.LichDats
+                            .OrderByDescending(ld => ld.MaLichDat)
+                            .Select(ld => ld.ThoiGianBatDau)
+                            .FirstOrDefault();
+
+            // Lấy ra loại sân, số sân, giá sân
+            var loai_so_San = db.LichDats.Where(ld => ld.MaLichDat == maLDMoiNhat)
+                                      .Join(db.Sans,
+                                            ld => ld.MaSan,
+                                            s => s.MaSan,
+                                            (ld, s) => new { LichDat = ld, San = s })
+                                      .Join(db.DanhMucSans,
+                                             lds => lds.San.MaDanhMuc,
+                                             dm => dm.MaDanhMuc,
+                                             (lds, dm) => new { lds.LichDat, lds.San, DanhMucSan = dm })
+                                      .OrderByDescending(res => res.LichDat.MaLichDat)
+                                      .FirstOrDefault();
+
+            ViewBag.LoaiSan = loai_so_San.DanhMucSan.LoaiSan;
+            string soSan = loai_so_San.San.SoSan.ToString();
+            double giaTien = (double)loai_so_San.San.GiaSan;
+
+            //string soSan = ViewBag.SoSan.ToString();
+            //string giaSan = ViewBag.GiaSan.ToString();
+
+            // Lấy ra số giờ đặt
+            var tgKetThuc = db.LichDats
+                            .OrderByDescending(ld => ld.MaLichDat)
+                            .Select(row => row.ThoiGianKetThuc)
+                            .FirstOrDefault();
+
+            TimeSpan thGianDatSan = (TimeSpan)(tgKetThuc - ngayDat);
+            double soGioDat = thGianDatSan.TotalHours;
+
+            // Thêm vào CTHD
+            CTHD cTHD = new CTHD();
+
+            cTHD.MaCTHD = maCTHD;
+            cTHD.MaHoaDon = hoaDon.MaHoaDon;
+            cTHD.NgayDat = ngayDat;
+            cTHD.LoaiSan = ViewBag.LoaiSan;
+
+            int SoSan;
+            if (int.TryParse(soSan, out SoSan))
+            {
+                cTHD.SoSan = SoSan;
+            }
+
+            cTHD.SoGioDat = soGioDat;
+
+            cTHD.GiaTien = giaTien;
+
+            db.CTHDs.Add(cTHD);
+
+            db.SaveChanges();
+
+        }
     }
 }

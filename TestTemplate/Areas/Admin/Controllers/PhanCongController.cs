@@ -8,6 +8,8 @@ using PagedList;
 
 namespace TestTemplate.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "XemDanhSach")]
+
     public class PhanCongController : Controller
     {
         // GET: Admin/PhanCong
@@ -22,6 +24,7 @@ namespace TestTemplate.Areas.Admin.Controllers
             return View(dsPhanCongs.OrderBy(n => n.MaCS).ToPagedList(PageNumber, PageSize));
         }
 
+        [Authorize(Roles = "Them")]
         public ActionResult ThemMoi()
         {
             return View();
@@ -50,24 +53,26 @@ namespace TestTemplate.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult CapNhatPC(string maNV, string maCS)
+        [Authorize(Roles = "Sua")]
+        public ActionResult CapNhatPC(int id)
         {
-            var pc = db.PhanCongs.Find(maNV, maCS);
+            var pc = db.PhanCongs.Find(id);
             return View(pc);
         }
         [HttpPost]
         public ActionResult CapNhatPC(PhanCong pc)
         {
-            if (string.IsNullOrEmpty(pc.MaNV) == true)
+            if (string.IsNullOrEmpty(pc.MaNV) == true || string.IsNullOrEmpty(pc.MaCS) == true)
             {
                 ModelState.AddModelError("", "Thiếu thông tin");
                 return View(pc);
             }
 
-            var updatePC = db.PhanCongs.Find(pc.MaNV, pc.MaCS);
+            var updatePC = db.PhanCongs.Find(pc.MaPC);
             try
             {
                 updatePC.MaNV = pc.MaNV;
+                updatePC.MaCS = pc.MaCS;
                 updatePC.GhiChu = pc.GhiChu;
 
                 db.SaveChanges();
@@ -80,7 +85,8 @@ namespace TestTemplate.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Xoa(string id)
+        [Authorize(Roles = "Xoa")]
+        public ActionResult Xoa(int id)
         {
             var model = db.PhanCongs.Find(id);
             db.PhanCongs.Remove(model);

@@ -18,8 +18,8 @@ namespace TestTemplate.Controllers
             return PartialView();
         }
 
-        [ChildActionOnly] // người dùng không thể get partial
-        public ActionResult CoSoBongRoPartial()
+            [ChildActionOnly] // người dùng không thể get partial
+            public ActionResult CoSoBongRoPartial()
         {
 
             return PartialView();
