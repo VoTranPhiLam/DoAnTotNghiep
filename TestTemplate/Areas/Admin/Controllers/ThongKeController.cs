@@ -7,6 +7,8 @@ using TestTemplate.Models;
 
 namespace TestTemplate.Areas.Admin.Controllers
 {
+ 
+
     public class ThongKeController : Controller
     {
         // GET: Admin/ThongKe

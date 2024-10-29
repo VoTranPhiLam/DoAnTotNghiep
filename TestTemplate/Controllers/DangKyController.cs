@@ -18,30 +18,28 @@ namespace TestTemplate.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult DangKy(DangKy model)
+        public JsonResult DangKy(DangKy model)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return Json(new { success = false, message = "Thông tin đăng ký không hợp lệ." });
             }
 
             var check_userName = db.user_KhachHang.Where(u => u.username == model.userName).SingleOrDefault();
             if (check_userName != null)
             {
-                TempData["LoiUserName"] = "Tên đăng nhập đã được sử dụng !";
-                return View();
+                TempData["LoiUserName"] = "Tên đăng nhập đã được sử dụng!";
+                return Json(new { success = false, message = "Tên đăng nhập đã được sử dụng!" });
             }
-
             else
             {
                 // Lưu khách hàng vào cơ sở dữ liệu
                 var lastCustomer = db.user_KhachHang.OrderByDescending(kh => kh.MaKH).FirstOrDefault();
                 if (lastCustomer != null)
                 {
-                    // Nếu có khách hàng trong cơ sở dữ liệu, lấy giá trị của MaKhachHang lớn nhất và tăng lên 1.
                     MaKH = int.Parse(lastCustomer.MaKH) + 1;
                 }
-                // Tạo mã khách hàng dưới dạng "001", "002", ...
+
                 string makh = $"{MaKH:D3}";
                 MaKH++;
                 user_KhachHang khachHang = new user_KhachHang()
@@ -55,17 +53,15 @@ namespace TestTemplate.Controllers
                 };
                 db.user_KhachHang.Add(khachHang);
 
-                //Lưu tài khoản khách hàng
+                // Lưu tài khoản khách hàng
                 var checkMTK = db.TaiKhoans.OrderByDescending(tk => tk.MaTK).FirstOrDefault();
                 if (checkMTK != null)
                 {
-                    // Nếu có tài khoản trong cơ sở dữ liệu, lấy giá trị của MaTK lớn nhất và tăng lên 1.
                     MaTK = int.Parse(checkMTK.MaTK) + 1;
                 }
-                // Tạo mã tài khoản dưới dạng "001", "002", ...
+
                 string maTK = $"{MaTK:D3}";
                 MaTK++;
-
                 TaiKhoan taiKhoan = new TaiKhoan()
                 {
                     MaTK = maTK,
@@ -73,19 +69,15 @@ namespace TestTemplate.Controllers
                     username = model.userName,
                     password = model.password
                 };
-                
-                
 
                 db.TaiKhoans.Add(taiKhoan);
-
                 db.SaveChanges();
-            }
 
-            TempData["DangKyThanhCong"] = "Đăng ký thành công";
-            ViewBag.DangKyThanhCong = TempData["DangKyThanhCong"] as string;
-            return View();
+                return Json(new { success = true, message = "Đăng ký thành công!" });
+            }
         }
 
-       
+
+
     }
 }

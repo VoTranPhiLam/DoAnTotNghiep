@@ -5,94 +5,131 @@
     Layout = "~/Views/Shared/LayoutDatSan.cshtml";
 }
 
+<!-- Bootstrap CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- jQuery và Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<h2 style="margin-left: 500px; margin-top: 50px">Điền thông tin</h2>
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #1E3A8A, #1D4ED8);">
+    <div style="background-color: white; padding: 30px 50px; border-radius: 40px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); max-width: 700px; width: 100%;">
+        <h2 style="text-align: center; color: #1E3A8A; margin-bottom: 20px">Đăng Ký Tài Khoản</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div style="margin: 100px 0px">
-        <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
             <div class="form-horizontal">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @*<div class="form-group">
-            @Html.LabelFor(model => model.MaKH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaKH, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-            <div>
-                <p>
+
+                <div>
                     @if (!string.IsNullOrEmpty(ViewBag.DangKyThanhCong))
                     {
-                        <div class="alert alert-success" style="margin-right: 1000px">@ViewBag.DangKyThanhCong</div>
+                        <div class="alert alert-success" style="text-align: center;">@ViewBag.DangKyThanhCong</div>
                     }
-                </p>
+                </div>
 
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="control-label" style="color: #333;">Tên tài khoản</label>
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control rounded-input", placeholder = "Tên tài khoản" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                    <p class="text-danger" style="color: red">
+                        @TempData["LoiUserName"]
+                    </p>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="control-label" style="color: #333;">Mật khẩu</label>
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control rounded-input", placeholder = "Mật khẩu" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="control-label" style="color: #333;">Xác nhận mật khẩu</label>
+                    @Html.EditorFor(model => model.confirm_password, new { htmlAttributes = new { @class = "form-control rounded-input", placeholder = "Xác nhận mật khẩu" } })
+                    @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="control-label" style="color: #333;">Họ tên</label>
+                    @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control rounded-input", placeholder = "Họ tên" } })
+                    @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="control-label" style="color: #333;">Số điện thoại</label>
+                    @Html.EditorFor(model => model.soDienThoai, new { htmlAttributes = new { @class = "form-control rounded-input", placeholder = "Số điện thoại" } })
+                    @Html.ValidationMessageFor(model => model.soDienThoai, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label class="control-label" style="color: #333;">Email</label>
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control rounded-input", placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <input type="submit" value="Đăng ký" class="btn btn-primary" style="padding: 10px 30px; border-radius: 20px; background-color: #FF5722; border: none; font-size: 16px;" />
+                </div>
             </div>
+        }
+    </div>
+</div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2 " style="margin-top: 10px">Tên tài khoản</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
-                        <p class="text-danger" style="color: red">
-                            @TempData["LoiUserName"]
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2 " style="margin-top: 10px">Mật khẩu</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2 " style="margin-top: 10px">Xác nhận mật khẩu</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.confirm_password, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2 " style="margin-top: 10px">Họ tên</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" style="margin-top: 10px">Số điện thoại</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.soDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.soDienThoai, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" style="margin-top: 10px">Email</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10" style="margin-top: 20px">
-                        <input type="submit" value="Đăng ký" class="btn btn-primary" />
-                    </div>
-                </div>
+<!-- Modal thông báo đăng ký thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Đăng ký thành công</h5>
+                <!-- Dấu X để đóng modal -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="~/Content/img/success-icon.png" alt="Success Icon" style="width: 50px; height: auto; margin-bottom: 15px;" />
+                <p>Đăng ký thành công.</p>
+            </div>
+            <div class="modal-footer">
+                <!-- Nút "Quay lại" đóng modal -->
+                <a href="~/DangKy/DangKy" class="btn btn-secondary">Quay lại</a>
+                <!-- Nút "Đăng nhập" chuyển đến trang đăng nhập -->
+                <a href="~/DangNhap/DangNhap" class="btn btn-primary">Đăng nhập</a>
             </div>
         </div>
     </div>
-}
+</div>
 
 
+<script>
+    $(document).ready(function () {
+        // Ngăn chặn sự kiện submit mặc định của form
+        $("form").submit(function (event) {
+            event.preventDefault();
+
+            // Lấy dữ liệu từ form
+            var formData = $(this).serialize();
+
+            // Gửi yêu cầu AJAX tới server
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DangKy", "DangKy")', // Đảm bảo đúng tên controller và action
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        // Hiển thị modal thành công
+                        $("#successModal").modal("show");
+                    } else {
+                        // Hiển thị thông báo lỗi (nếu có)
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+                }
+            });
+        });
+    });
+</script>

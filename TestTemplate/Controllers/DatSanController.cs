@@ -25,52 +25,74 @@ namespace TestTemplate.Controllers
 
         [HttpPost]
         public ActionResult Index(DatSan model)
-        {
+{
+    // kiểm tra dữ liệu có hợp lệ không
+    if (!ModelState.IsValid)
+    {
+        return View(model);
+    }
 
-            // kiểm tra dữ liệu
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            // kết hợp biến ngày đặt vs giờ đá
-            string batdau = model.ngayDatSan + " " + model.gioBatDau;
-            string ketthuc = model.ngayDatSan + " " + model.gioKetThuc;
+    // kết hợp biến ngày đặt với giờ đá và giờ kết thúc
+    string batdau = $"{model.ngayDatSan} {model.gioBatDau}";
+    string ketthuc = $"{model.ngayDatSan} {model.gioKetThuc}";
 
-            DateTime gio_da = new DateTime();
-            DateTime gio_nghi = new DateTime();
-            DateTime.TryParse(batdau, out gio_da);
-            DateTime.TryParse(ketthuc, out gio_nghi);
+    // Khai báo các biến thời gian bắt đầu và kết thúc
+    DateTime gio_da;
+    DateTime gio_nghi;
 
-            // kiểm tra tg hợp lệ
-            if (!kiemtra_TG_Trandau(gio_da, gio_nghi))
-            {
-                ModelState.AddModelError("", "Thời gian bạn chọn không hợp lệ, vui lòng chọn lại\n  Thời gian mở cửa từ 7 giờ sáng đến 23 giờ cùng ngày.\nTổng thời gian trận đấu phải kéo dài từ 30 phút trở lên và không được đặt quá 1 tháng trước thời gian hiện tại.");
-                return View(model);
-            }
+    // Kiểm tra và chuyển đổi chuỗi thời gian thành DateTime
+    if (!DateTime.TryParse(batdau, out gio_da) || !DateTime.TryParse(ketthuc, out gio_nghi))
+    {
+        ModelState.AddModelError("", "Định dạng ngày hoặc giờ không hợp lệ. Vui lòng kiểm tra lại.");
+        return View(model);
+    }
 
-            string maSanTrong = TimMaSanTrong(gio_da, gio_nghi, model.ma_danhmuc);
-            if (maSanTrong == null)
-            {
-                ModelState.AddModelError("", "Hiện cơ sở đã hết sân trống trong khung giờ bạn chọn Vui lòng chọn khung giờ khác");
+    // kiểm tra thời gian hợp lệ
+    if (!kiemtra_TG_Trandau(gio_da, gio_nghi))
+{
+    ModelState.AddModelError("", "Thời gian bạn chọn không hợp lệ, vui lòng chọn lại.\n" +
+        "Thời gian mở cửa từ 7 giờ sáng đến 23 giờ cùng ngày.\n" +
+        "Tổng thời gian trận đấu phải kéo dài từ 30 phút trở lên và không được đặt quá 1 tháng trước thời gian hiện tại.\n" +
+        "Khách hàng vui lòng đặt sân trước 3 tiếng.\n" +
+        "Lưu ý: Sân nghỉ trưa từ 11 giờ đến 2 giờ chiều mỗi ngày.");
+    return View(model);
+}
 
-                return View(model);
-            }
-            var danhMucSan = db.DanhMucSans.SingleOrDefault(dm => dm.MaDanhMuc == model.ma_danhmuc);
-            if (danhMucSan != null)
-            {
-                TempData["LoaiSan"] = danhMucSan.LoaiSan;
-            }
 
-            var khachhang = Session["user"] as user_KhachHang;
+    // Tìm mã sân trống dựa trên thời gian
+    string maSanTrong = TimMaSanTrong(gio_da, gio_nghi, model.ma_danhmuc);
+    if (maSanTrong == null)
+    {
+        ModelState.AddModelError("", "Hiện tại không có sân trống trong khung giờ bạn chọn. Vui lòng chọn khung giờ khác.");
+        return View(model);
+    }
 
-            model.ma_KH = khachhang.MaKH;
-            model.ma_San = maSanTrong;
+    // Tìm thông tin danh mục sân
+    var danhMucSan = db.DanhMucSans.SingleOrDefault(dm => dm.MaDanhMuc == model.ma_danhmuc);
+    if (danhMucSan != null)
+    {
+        TempData["LoaiSan"] = danhMucSan.LoaiSan;
+    }
 
-            // Lưu model vào TempData để sử dụng sau này
-            TempData["ThongTinDatSan"] = model;
+    // Lấy thông tin khách hàng từ Session
+    var khachhang = Session["user"] as user_KhachHang;
+    if (khachhang == null)
+    {
+        ModelState.AddModelError("", "Vui lòng đăng nhập để đặt sân.");
+        return RedirectToAction("DangNhap", "DangNhap");
+    }
 
-            return RedirectToAction("XacNhanDatSan", model);
-        }
+    // Gán thông tin khách hàng và mã sân vào model
+    model.ma_KH = khachhang.MaKH;
+    model.ma_San = maSanTrong;
+
+    // Lưu thông tin đặt sân vào TempData để sử dụng trong bước tiếp theo
+    TempData["ThongTinDatSan"] = model;
+
+    // Chuyển hướng đến trang xác nhận đặt sân
+    return RedirectToAction("XacNhanDatSan");
+}
+
 
         public ActionResult XacNhanDatSan(DatSan model)
         {
@@ -108,7 +130,7 @@ namespace TestTemplate.Controllers
             var lichdattrung = db.LichDats.Where(c => c.MaSan == model.ma_San && c.TrangThai == "Đã huỷ" && KiemTraTrungLich(c, gio_da, gio_nghi)) as LichDat;
             if (lichdattrung != null)
             {
-                lichdattrung.TrangThai = "Chưa diễn ra";
+                lichdattrung.TrangThai = "Đã đặt";
                 lichdattrung.MaKhachHang = model.ma_KH;
                 db.SaveChanges();
                 TempData["ThongBaoDatSan"] = "Đặt sân thành công!";
@@ -125,7 +147,7 @@ namespace TestTemplate.Controllers
                     MaSan = model.ma_San,
                     ThoiGianBatDau = gio_da,
                     ThoiGianKetThuc = gio_nghi,
-                    TrangThai = "Chưa diễn ra"
+                    TrangThai = "Đã đặt"
                 };
 
                 db.LichDats.Add(ld_ms);
@@ -260,7 +282,7 @@ namespace TestTemplate.Controllers
                         .FirstOrDefault()
                         .ToString();
 
-            string TrangThai = "Chưa thanh toán";
+            string TrangThai = "Đặt sân";
 
             var lastInvoice = db.HoaDons.OrderByDescending(hd => hd.MaHoaDon).FirstOrDefault();
             if (lastInvoice != null)

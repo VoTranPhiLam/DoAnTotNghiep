@@ -57,22 +57,41 @@
                     }
                 }
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGianBatDau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGianKetThuc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @if (item.TrangThai == "Chưa diễn ra")
-                {
-                    @Html.ActionLink("Huỷ sân", "HuySan", new { maLichDat = item.MaLichDat}, new { @class = "btn btn-danger" })
+           <td>
+    @Html.DisplayFor(modelItem => item.ThoiGianBatDau)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.ThoiGianKetThuc)
+</td>
+<td>
+    @{
+        // Lấy thời gian hiện tại
+        var thoiGianHienTai = DateTime.Now;
 
-                }
-            </td>
+        // Kiểm tra nếu thời gian hiện tại đã sau ThoiGianBatDau
+        if (item.ThoiGianBatDau <= thoiGianHienTai && item.TrangThai == "Đã đặt")
+        {
+            // Thay đổi trạng thái "Đã đặt" thành "Không thể hủy"
+            <span>Không thể hủy</span>
+        }
+        else
+        {
+            // Hiển thị trạng thái gốc
+            @Html.DisplayFor(modelItem => item.TrangThai)
+        }
+    }
+</td>
+<td>
+    @{
+        // Kiểm tra điều kiện hiển thị nút "Hủy sân"
+        if (item.ThoiGianBatDau > thoiGianHienTai && item.TrangThai == "Đã đặt")
+        {
+            // Hiển thị nút "Hủy sân" nếu sự kiện Đã đặt và trước ThoiGianBatDau
+            @Html.ActionLink("Huỷ sân", "HuySan", new { maLichDat = item.MaLichDat }, new { @class = "btn btn-danger" })
+        }
+    }
+</td>
+
             <td>
                 @Html.ActionLink("Hóa đơn", "XemHoaDon", new { maLichDat = item.MaLichDat }, new { @class = "btn btn-info" })
             </td>

@@ -9,6 +9,7 @@ using PagedList;
 
 namespace TestTemplate.Areas.Admin.Controllers
 {
+  
     public class HomeAdminController : Controller
     {
         // GET: Admin/HomeAdmin

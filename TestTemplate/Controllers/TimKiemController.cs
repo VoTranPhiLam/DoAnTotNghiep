@@ -11,7 +11,7 @@ namespace TestTemplate.Controllers
     {
        QLDSEntities db = new QLDSEntities();
         // GET: TimKiem
-        public ActionResult KQTimKiem(string sTenCS, string sDiaChi)
+        public ActionResult KQTimKiem(string sTenCS, string sDiaChi, string sLoaiCS)
         {
             // Tìm kiếm theo tên cơ sở
             var lstCoSo = db.CoSoes.Where(n => n.TenCS.Contains(sTenCS)

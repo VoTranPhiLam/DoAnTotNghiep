@@ -58,8 +58,9 @@
                 @Html.DisplayFor(modelItem => item.SoSan)
             </td>
             <td style="padding-top: 16px">
-                @Html.DisplayFor(modelItem => item.SoGioDat)
-            </td>
+    @Math.Floor((double)item.SoGioDat)
+</td>
+
             <td style="padding-top: 16px">
                 @Html.DisplayFor(modelItem => item.GiaTien)
             </td>

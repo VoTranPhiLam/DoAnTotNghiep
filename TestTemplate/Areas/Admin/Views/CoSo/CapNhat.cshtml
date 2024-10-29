@@ -65,22 +65,13 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-10 " style="margin-top: 10px">Mã loại sân</label>
-        <div class="col-md-10">
-            <select name="MaLs" class="form-control">
-                @foreach (var loai in db.LoaiCoSoes.ToList())
-                {
-                    <option value="@loai.MaLoaiCS">@loai.TenLoaiCS</option>
-                }
-                @*<option value="BongDa">f</option>
-                    <option value="BongRo">br</option>
-                    <option value="CauLong">bmt</option>
-                    <option value="Tennis">tennis   </option>*@
-            </select>
-            @Html.ValidationMessageFor(model => model.MaLoaiCS, "", new { @class = "text-danger" })
-        </div>
-    </div>
+   <div class="form-group">
+      <label class="control-label col-md-10 " style="margin-top: 10px">Nhập Loại sâm</label>
+      <div class="col-md-10">
+          @Html.EditorFor(model => model.MaLoaiCS, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.MaLoaiCS, "", new { @class = "text-danger" })
+      </div>
+  </div>
 
 
 

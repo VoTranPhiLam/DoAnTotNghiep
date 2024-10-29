@@ -7,6 +7,8 @@ using TestTemplate.Models;
 
 namespace TestTemplate.Areas.Admin.Controllers
 {
+
+
     public class TimKiem_AdminController : Controller
     {
         // GET: Admin/TimKiem
